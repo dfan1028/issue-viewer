@@ -1,7 +1,7 @@
 FROM ruby:2.7.1-alpine
 
 ARG BUILD_PACKAGES="build-base"
-ARG DEV_PACKAGES="postgresql-dev nodejs yarn"
+ARG DEV_PACKAGES="postgresql-dev git nodejs yarn vim"
 ARG RUBY_PACKAGES="tzdata"
 
 ## Install Packages ##
