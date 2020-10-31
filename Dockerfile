@@ -18,8 +18,6 @@ RUN gem install bundler -v 2.0.1
 
 RUN ["/bin/sh", "-c", "bundle install"]
 
-RUN yarn install
-
 COPY . /app
 
 RUN bin/rails assets:precompile --trace
