@@ -10,10 +10,32 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_31_205735) do
+ActiveRecord::Schema.define(version: 2020_11_01_080513) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "issues", force: :cascade do |t|
+    t.string "title"
+    t.string "author"
+    t.integer "repository_id", null: false
+    t.string "remote_id", null: false
+    t.string "remote_created_at"
+    t.text "description"
+    t.datetime "created_at", precision: 6, default: -> { "CURRENT_TIMESTAMP" }, null: false
+    t.datetime "updated_at", precision: 6, default: -> { "CURRENT_TIMESTAMP" }, null: false
+    t.index ["repository_id", "remote_id"], name: "index_issues_on_repository_id_and_remote_id", unique: true
+  end
+
+  create_table "repositories", force: :cascade do |t|
+    t.string "full_name", null: false
+    t.string "remote_id", null: false
+    t.integer "user_id", null: false
+    t.datetime "created_at", precision: 6, default: -> { "CURRENT_TIMESTAMP" }, null: false
+    t.datetime "updated_at", precision: 6, default: -> { "CURRENT_TIMESTAMP" }, null: false
+    t.index ["remote_id"], name: "index_repositories_on_remote_id", unique: true
+    t.index ["user_id"], name: "index_repositories_on_user_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "name"
