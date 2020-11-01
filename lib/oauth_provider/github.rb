@@ -1,6 +1,6 @@
 module OauthProvider
   class Github < Base
-    def create_or_update!
+    def create_or_update_user!
       User.find_or_initialize_by(uid: uid, platform: provider).tap do |user|
         user.name       = username
         user.email      = email

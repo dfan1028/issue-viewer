@@ -1,6 +1,6 @@
 class AuthController < ApplicationController
   def create
-    user = oauth_manager.create_or_update!
+    user = oauth_manager.create_or_update_user!
 
     session[:user_id] = user.id
 
