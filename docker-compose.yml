@@ -21,8 +21,10 @@ services:
       - DB_USER="postgres"
       - DB_PASSWORD="password"
       - DB_NAME="issue_viewer_development"
+      - GITHUB_KEY=b4bba2e3e1df09019802
+      - GITHUB_SECRET=370b7c577760cf70476865c2a1712afccac9c27d
     volumes:
-      - .:/app
+      - web-sync:/app:nocopy
       - /app/node_modules/
     ports:
       - "3000:3000"
@@ -37,3 +39,5 @@ volumes:
   db:
   web:
   redis:
+  web-sync:
+    external: true
