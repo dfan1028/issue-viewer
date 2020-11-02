@@ -4,11 +4,6 @@ class AuthController < ApplicationController
 
     session[:user_id] = user.id
 
-    # First time signing up or no repos exist. Let's import some data.
-    if user.repositories.empty?
-      provider_service.import_data!
-    end
-
     redirect_to :root
   end
 

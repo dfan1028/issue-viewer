@@ -11,7 +11,8 @@ class Issues extends Component {
 
     this.state = {
       issues: [],
-      pagination: {}
+      pagination: {},
+      loaded: false
     };
 
     this.handlePageChange = this.handlePageChange.bind(this);
@@ -23,7 +24,8 @@ class Issues extends Component {
       .then(response => {
         this.setState({
           issues: response.data.issues,
-          pagination: response.data.meta
+          pagination: response.data.meta,
+          loaded: true
         });
       })
   }
@@ -37,14 +39,19 @@ class Issues extends Component {
   }
 
   render() {
+    let hasIssues = this.state.issues.length > 0;
+
     return (
       <React.Fragment>
         <h1 className="center">Issues For:</h1>
-        <List items={ this.state.issues } resourceKey="issues" titleKey="title" />
-        <Pagination
-          totalPages={ this.state.pagination.total_pages }
-          handlePageChange={ this.handlePageChange }
-        />
+        { hasIssues && <List items={ this.state.issues } resourceKey="issues" titleKey="title" /> }
+        { hasIssues &&
+            <Pagination
+              totalPages={ this.state.pagination.total_pages }
+              handlePageChange={ this.handlePageChange }
+            />
+        }
+        { this.state.loaded && !hasIssues && <p className="center">Holy cow! Are you a wizard? You have no issues!</p> }
       </React.Fragment>
     )
   }

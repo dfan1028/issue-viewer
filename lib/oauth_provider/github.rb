@@ -1,10 +1,6 @@
 module OauthProvider
   class Github < Base
 
-    def import_repos!
-      github_service.import_data!
-    end
-
     def updatable_params
       {
         name: username,
@@ -30,10 +26,6 @@ module OauthProvider
 
     def auth_token
       omniauth_params&.credentials&.token
-    end
-
-    def github_service
-      @github_service ||= GithubService::Repository.new(user)
     end
 
   end

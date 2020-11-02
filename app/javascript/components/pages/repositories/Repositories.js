@@ -11,7 +11,8 @@ class Repositories extends Component {
 
     this.state = {
       repositories: [],
-      pagination: {}
+      pagination: {},
+      loaded: false
     };
 
     this.handlePageChange = this.handlePageChange.bind(this);
@@ -23,7 +24,8 @@ class Repositories extends Component {
       .then(response => {
         this.setState({
           repositories: response.data.repositories,
-          pagination: response.data.meta
+          pagination: response.data.meta,
+          loaded: true
         });
       })
   }
@@ -37,14 +39,19 @@ class Repositories extends Component {
   }
 
   render() {
+    let hasRepos = this.state.repositories.length > 0;
+
     return (
       <React.Fragment>
         <h1 className="center">Your Repositories</h1>
-        <List items={ this.state.repositories } resourceKey="repositories" titleKey="full_name" />
-        <Pagination
-          totalPages={ this.state.pagination.total_pages }
-          handlePageChange={ this.handlePageChange }
-        />
+        { hasRepos && <List items={ this.state.repositories } resourceKey="repositories" titleKey="full_name" /> }
+        { hasRepos &&
+            <Pagination
+              totalPages={ this.state.pagination.total_pages }
+              handlePageChange={ this.handlePageChange }
+            />
+        }
+        { this.state.loaded && !hasRepos && <p className="center">Are you even a developer?! How do you not have any repos?</p> }
       </React.Fragment>
     )
   }
