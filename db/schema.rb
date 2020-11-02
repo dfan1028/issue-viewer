@@ -18,13 +18,15 @@ ActiveRecord::Schema.define(version: 2020_11_01_080513) do
   create_table "issues", force: :cascade do |t|
     t.string "title"
     t.string "author"
+    t.integer "number"
     t.integer "repository_id", null: false
     t.string "remote_id", null: false
     t.string "remote_created_at"
     t.text "description"
     t.datetime "created_at", precision: 6, default: -> { "CURRENT_TIMESTAMP" }, null: false
     t.datetime "updated_at", precision: 6, default: -> { "CURRENT_TIMESTAMP" }, null: false
-    t.index ["repository_id", "remote_id"], name: "index_issues_on_repository_id_and_remote_id", unique: true
+    t.index ["remote_id"], name: "index_issues_on_remote_id", unique: true
+    t.index ["repository_id"], name: "index_issues_on_repository_id"
   end
 
   create_table "repositories", force: :cascade do |t|

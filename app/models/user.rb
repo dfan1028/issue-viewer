@@ -4,4 +4,7 @@ class User < ApplicationRecord
     uniqueness: { scope: [:platform] }
 
   validates :platform, presence: true
+
+  has_many :repositories, dependent: :destroy
+  has_many :issues, through: :repositories
 end
