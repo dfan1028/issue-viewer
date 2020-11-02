@@ -1,30 +1,42 @@
-class API::IssuesController < ApplicationController
-
-  # before_action :authenticate_user!
+class API::IssuesController < API::BaseController
 
   def index
-    issues = repository.issues
+    filtered =
+      repository
+        .issues
+        .page(page)
+        .per(per_page_size)
 
-    # TODO move this into an update method
-    unless issues.exists?
+    if filtered.total_count.zero?
       GithubService::Issue.new(current_user, repository).import_data!
     end
 
-    render json: issues#, each_serializer: RepositorySerializer
+    render json: filtered,
+      each_serializer: IssueSerializer,
+      meta: paginate(filtered),
+      adapter: :json
   end
 
   def show
-    render json: issue
+    render json: issue, each_serializer: IssueSerializer
   end
 
   private
 
   def issue
-    @issue ||= current_user.issues.where(id: params[:id]).first
+    @issue ||=
+      current_user
+        .issues
+        .where(id: params[:id])
+        .first
   end
 
   def repository
-    @repository ||= current_user.repositories.where(id: permitted[:repo_id]).first
+    @repository ||=
+      current_user
+        .repositories
+        .where(id: permitted[:repo_id])
+        .first
   end
 
   def permitted

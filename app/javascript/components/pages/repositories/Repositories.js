@@ -1,28 +1,50 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import ReactPaginate from 'react-paginate';
 
 import List from '../../layout/List';
+import Pagination from '../../layout/Pagination';
 
 class Repositories extends Component {
-  state = {
-    repositories: []
-  };
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      repositories: [],
+      pagination: {}
+    };
+
+    this.handlePageChange = this.handlePageChange.bind(this);
+  }
+
+  fetchData = (params) => {
+    axios
+      .get('/api/repositories', { params: params })
+      .then(response => {
+        this.setState({
+          repositories: response.data.repositories,
+          pagination: response.data.meta
+        });
+      })
+  }
 
   componentDidMount() {
-    axios
-      .get('/api/repositories')
-      .then(response => {
-        this.setState({ repositories: response.data });
-      })
+    this.fetchData({ page: 1 });
+  }
 
-    console.log("mounted");
+  handlePageChange = (data) => {
+    this.fetchData({ page: data.selected + 1 })
   }
 
   render() {
     return (
       <React.Fragment>
-        <h1 className="center">Your repositories</h1>
+        <h1 className="center">Your Repositories</h1>
         <List items={ this.state.repositories } resourceKey="repositories" titleKey="full_name" />
+        <Pagination
+          totalPages={ this.state.pagination.total_pages }
+          handlePageChange={ this.handlePageChange }
+        />
       </React.Fragment>
     )
   }

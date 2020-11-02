@@ -1,10 +1,16 @@
-class API::RepositoriesController < ApplicationController
-
-  # before_action :authenticate_user!
+class API::RepositoriesController < API::BaseController
 
   def index
-    repositories = current_user.repositories
+    filtered =
+      current_user
+        .repositories
+        .page(page)
+        .per(per_page_size)
 
-    render json: repositories#, each_serializer: RepositorySerializer
+    render json: filtered,
+      each_serializer: RepositorySerializer,
+      meta: paginate(filtered),
+      adapter: :json
   end
+
 end

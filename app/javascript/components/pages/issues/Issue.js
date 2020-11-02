@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 
+import ReactMarkdown from 'react-markdown';
+
 class Issue extends Component {
   state = {
     issue: {}
@@ -18,9 +20,9 @@ class Issue extends Component {
     return (
       <React.Fragment>
         <h1 className="center">{ this.state.issue.title }</h1>
-        <p>
+        <ReactMarkdown>
           { this.state.issue.description }
-        </p>
+        </ReactMarkdown>
       </React.Fragment>
     )
   }
