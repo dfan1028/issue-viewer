@@ -50,6 +50,9 @@ GEM
     activerecord (6.0.3.4)
       activemodel (= 6.0.3.4)
       activesupport (= 6.0.3.4)
+    activerecord-explain-analyze (0.1.0)
+      activerecord (>= 4)
+      pg
     activestorage (6.0.3.4)
       actionpack (= 6.0.3.4)
       activejob (= 6.0.3.4)
@@ -212,6 +215,7 @@ PLATFORMS
 
 DEPENDENCIES
   active_model_serializers
+  activerecord-explain-analyze
   bootsnap (>= 1.4.2)
   byebug
   jbuilder (~> 2.7)
