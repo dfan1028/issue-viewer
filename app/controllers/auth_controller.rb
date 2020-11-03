@@ -1,6 +1,6 @@
 class AuthController < ApplicationController
   def create
-    user = oauth_manager.create_or_update_user!
+    user = provider_service.create_or_update_user!
 
     session[:user_id] = user.id
 
@@ -19,8 +19,12 @@ class AuthController < ApplicationController
 
   private
 
-  def oauth_manager
-    @oauth_manager ||= OauthProvider::Manager.new(omniauth_params)
+  def delegator
+    @oauth_manager ||= OauthProvider::Delegator.new(omniauth_params)
+  end
+
+  def provider_service
+    @provider_service ||= delegator.provider_service
   end
 
   def omniauth_params

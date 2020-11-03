@@ -1,17 +1,16 @@
 module OauthProvider
   class Github < Base
-    def create_or_update_user!
-      User.find_or_initialize_by(uid: uid, platform: provider).tap do |user|
-        user.name       = username
-        user.email      = email
-        user.image_url  = image_url
-        user.auth_token = auth_token
 
-        if !user.persisted? || user.changed?
-          user.save
-        end
-      end
+    def updatable_params
+      {
+        name: username,
+        email: email,
+        image_url: image_url,
+        auth_token: auth_token
+      }
     end
+
+    private
 
     def image_url
       info&.image
@@ -28,5 +27,6 @@ module OauthProvider
     def auth_token
       omniauth_params&.credentials&.token
     end
+
   end
 end

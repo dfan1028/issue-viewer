@@ -2,28 +2,31 @@
 <html>
   <head>
     <title>You got an issue, punk?</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag 'application', media: 'all' %>
+    <%= javascript_pack_tag 'application' %>
   </head>
 
   <body class="avenir">
     <nav class="menu w-100 pv4-ns pv2 shadow-2 flex">
       <div class="center w-90">
-        <span class="tracked-mega">
-          ISSUE VIEWER
+        <span class="tracked-mega f7 f5-ns b">
+          <a class="link black" href="/">ISSUE VIEWER</a>
         </span>
         <% if logged_in? %>
-          <div class="fr flex items-center">
+          <div class="fr flex items-center f7 f5-ns">
             <img class="h1 mr2 shadow-1" src="<%= current_user.image_url%>">
             <%= current_user.name %>
-            <a class="link ml4" href="/logout">Sign out</a>
+            <a class="link ml4-ns ml2" href="/logout">Sign out</a>
           </div>
           <%= yield %>
         <% else %>
-          <a class="fr link" href="/auth/github">Sign in</a>
+          <a class="fr link f7 f5-ns" href="/auth/github">Sign in</a>
         <% end %>
       </div>
     </nav>
@@ -33,7 +36,7 @@
         <h1>Welcome, fren!</h1>
         <p class="i mb5">We'll always be here for all your issue viewing needs</p>
         <a class="f10 link dim br2 ph3 pv2 white bg-green flex items-center w-50" href="/auth/github">
-          <svg class="dib h2 w2 mr2" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill-rule="evenodd" clip-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="1.414"><path d="M8 0C3.58 0 0 3.582 0 8c0 3.535 2.292 6.533 5.47 7.59.4.075.547-.172.547-.385 0-.19-.007-.693-.01-1.36-2.226.483-2.695-1.073-2.695-1.073-.364-.924-.89-1.17-.89-1.17-.725-.496.056-.486.056-.486.803.056 1.225.824 1.225.824.714 1.223 1.873.87 2.33.665.072-.517.278-.87.507-1.07-1.777-.2-3.644-.888-3.644-3.953 0-.873.31-1.587.823-2.147-.083-.202-.358-1.015.077-2.117 0 0 .672-.215 2.2.82.638-.178 1.323-.266 2.003-.27.68.004 1.364.092 2.003.27 1.527-1.035 2.198-.82 2.198-.82.437 1.102.163 1.915.08 2.117.513.56.823 1.274.823 2.147 0 3.073-1.87 3.75-3.653 3.947.287.246.543.735.543 1.48 0 1.07-.01 1.933-.01 2.195 0 .215.144.463.55.385C13.71 14.53 16 11.534 16 8c0-4.418-3.582-8-8-8"/></svg>
+          <svg class="dib h2 w2 mr3" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill-rule="evenodd" clip-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="1.414"><path d="M8 0C3.58 0 0 3.582 0 8c0 3.535 2.292 6.533 5.47 7.59.4.075.547-.172.547-.385 0-.19-.007-.693-.01-1.36-2.226.483-2.695-1.073-2.695-1.073-.364-.924-.89-1.17-.89-1.17-.725-.496.056-.486.056-.486.803.056 1.225.824 1.225.824.714 1.223 1.873.87 2.33.665.072-.517.278-.87.507-1.07-1.777-.2-3.644-.888-3.644-3.953 0-.873.31-1.587.823-2.147-.083-.202-.358-1.015.077-2.117 0 0 .672-.215 2.2.82.638-.178 1.323-.266 2.003-.27.68.004 1.364.092 2.003.27 1.527-1.035 2.198-.82 2.198-.82.437 1.102.163 1.915.08 2.117.513.56.823 1.274.823 2.147 0 3.073-1.87 3.75-3.653 3.947.287.246.543.735.543 1.48 0 1.07-.01 1.933-.01 2.195 0 .215.144.463.55.385C13.71 14.53 16 11.534 16 8c0-4.418-3.582-8-8-8"/></svg>
           <span class="f8 db">LOGIN WITH GITHUB</span>
         </a>
       </div>
