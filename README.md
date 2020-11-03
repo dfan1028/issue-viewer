@@ -20,15 +20,16 @@ Steps to get up and running:
 
 ## Future Technical Considerations
 
-- Webhooks can be set up for creating and updating repositories and issues for a github user, to supplement fetching
-- Data fetching should be done in background jobs so it doesn't hold up web requests
-- Instead of storing `auth_token` on `User`, that could be
-- `Devise` can be handle more methods of authenticating, as well as permissions, if further types of users need to be added
+- Webhooks can be set up for creating and updating repositories and issues for a github user, to supplement fetching. This can alleviate some synchronicity issues cause issues and repo data and acccess are subject to changing. Syncing data with a remote source of truth is always a challenge.
+- Data fetching from Github should be done in background jobs so it doesn't hold up web requests
+- Instead of storing `auth_token` on `User`, that could be abstracted into another table so a user can hold many tokens
+- `Devise` can be used to handle more methods of authenticating, as well as permissions, if further types of users need to be added
 - `auth_token` stored on `User` should be encrypted. We should not be storing super sensitive data as-is, even in the database
 - Add mechanism for refreshing expired tokens
 - Add mechanism for rate limiting (Github allows 5000 calls per hour for authenticated requests)
+- Add handling for Github user deleting permissions to the client after they've authenticated
 
-## Desired Additions
+## Future Nice-To-Have's
 
 - Favicon, other metadata
 - Translations
