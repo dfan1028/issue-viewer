@@ -20,9 +20,14 @@ class Issue extends Component {
     return (
       <React.Fragment>
         <h1 className="center">{ this.state.issue.title }</h1>
-        <ReactMarkdown>
-          { this.state.issue.description }
-        </ReactMarkdown>
+        <p>Author: { this.state.issue.author }</p>
+        <p>Created At: { this.state.issue.remote_created_at }</p>
+        <p>Issue #: { this.state.issue.number }</p>
+        <p>Description:
+          <ReactMarkdown>
+            { this.state.issue.description }
+          </ReactMarkdown>
+        </p>
       </React.Fragment>
     )
   }
