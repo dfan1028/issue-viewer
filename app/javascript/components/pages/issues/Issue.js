@@ -23,11 +23,10 @@ class Issue extends Component {
         <p>Author: { this.state.issue.author }</p>
         <p>Created At: { this.state.issue.remote_created_at }</p>
         <p>Issue #: { this.state.issue.number }</p>
-        <p>Description:
-          <ReactMarkdown>
-            { this.state.issue.description }
-          </ReactMarkdown>
-        </p>
+        <p>Description:</p>
+        <ReactMarkdown>
+          { this.state.issue.description }
+        </ReactMarkdown>
       </React.Fragment>
     )
   }

@@ -1,4 +1,4 @@
-# Github Issue Viewer 
+# Github Issue Viewer
 
 [![CircleCI](https://circleci.com/gh/dfan1028/issue-viewer.svg?style=svg)](https://circleci.com/gh/dfan1028/issue-viewer)
 
@@ -28,9 +28,11 @@ Steps to get up and running:
 - Add mechanism for refreshing expired tokens
 - Add mechanism for rate limiting (Github allows 5000 calls per hour for authenticated requests)
 - Add handling for Github user deleting permissions to the client after they've authenticated
+- Response caching (w/redis), for example issues may change often, but repos should not typically change that often
 
 ## Future Nice-To-Have's
 
-- Favicon, other metadata
+- Better/prettier UX/UI Design :(
+- Favicon, and other metadata for SEO
 - Translations
 - Breadcrumbs and proper navigation bar
