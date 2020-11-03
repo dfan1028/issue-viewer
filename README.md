@@ -1,58 +1,35 @@
-# E Z P Z Setup:
+# Github Issue Viewer 
 
-1. Install Docker. I recommend the desktop app: https://www.docker.com/products/docker-desktop
-2. Make sure `docker-compose` is installed: https://docs.docker.com/compose/install/
-3. Now start it up, it should automatically build on first run `docker-compose up`
-4. Initialize the database: `docker-compose run web rake db:create db:migrate`
-5. Visit `0.0.0.0:3000` in your browser and browse away!
+[![CircleCI](https://circleci.com/gh/dfan1028/issue-viewer.svg?style=svg)](https://circleci.com/gh/dfan1028/issue-viewer)
 
-# Future Considerations:
+Hi there, you're probably wondering how you got here. Well no worries, I can for sure tell you that you don't even need Github anymore to view your issues, cause this application is all you need!
 
-Set up webhooks to listen for changes in access to repos and issue updates so we don't need to waste network calls fetching so frequently while also conserving api rate limited calls (max of 5000 per hour)
+## Setup
 
-Api profiles can be pulled out and separated from user. Just trying not to overengineer atm
+Steps to get up and running:
+1. Docker. I recommend the desktop app: https://www.docker.com/products/docker-desktop
+2. Docker compose: https://docs.docker.com/compose/install/ (This should come with the Docker desktop app on MacOS)
+3. Make sure you're in the application directory and run `docker-compose up`
+4. After everything starts up, you may visit `0.0.0.0:3000` but it should now say database is missing. Let's remedy that. Please run `docker-compose run web rake db:create db:migrate`, it may take a hot minute to complete.
+5. Refresh `0.0.0.0:3000` in your browser and now you're good to go!
 
-Api tokens stored on user should be encrypted data
+## Run Specs
 
+1. Go inside the application container `docker exec -t issue-viewer_web_1 sh`
+2. `RAILS_ENV=test rspec`
 
-For the purposes of this application, 5000 rate limit per hour per authenticated user is more than enough to warrant
+## Future Technical Considerations
 
+- Webhooks can be set up for creating and updating repositories and issues for a github user, to supplement fetching
+- Data fetching should be done in background jobs so it doesn't hold up web requests
+- Instead of storing `auth_token` on `User`, that could be
+- `Devise` can be handle more methods of authenticating, as well as permissions, if further types of users need to be added
+- `auth_token` stored on `User` should be encrypted. We should not be storing super sensitive data as-is, even in the database
+- Add mechanism for refreshing expired tokens
+- Add mechanism for rate limiting (Github allows 5000 calls per hour for authenticated requests)
 
+## Desired Additions
 
-
-# Design Decisions:
-
-Stored everything in postgres
-
-I thought of just caching everything in redis but caches should not be assumed as permanent. As the application scales with more users and data, it becomes unfeasible to keep everything in cache.
-
-Downside to this is that we have to "sync" data, repos and issues can be created/changed/deleted
-
-After the first fetch on auth, data fetching is only upon request.
-
-We still have data to display even if any github services goes down and don't need to rely on cache stores.
-
-Thinking of future considerations to manage this on a bigger scale is to listen for github webhooks and update data in background jobs
-
-
-
-auth
-
-if user has no repos
-  loop through repos, store and update
-  client.repos.map(:id)
-  user.repositories
-end
-
-
-1. finish issues fetching
-2. specs/circle
-3. readme documentation
-4. finish UI misc (breadcrumbs/nav)
-5. cache json responses
-6. 404 page
-7. error handling w/oauth and api calls
-8. serialize data
-9. paging
-10. secret key base for kookies
-11. metadata stuff and favicon
+- Favicon, other metadata
+- Translations
+- Breadcrumbs and proper navigation bar
