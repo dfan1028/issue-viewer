@@ -1,5 +1,5 @@
 class AuthController < ApplicationController
-  def create
+  def authenticate
     user = provider_service.create_or_update_user!
 
     session[:user_id] = user.id

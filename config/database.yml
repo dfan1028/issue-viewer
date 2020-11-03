@@ -12,6 +12,9 @@ development:
 
 test:
   <<: *default
+  username: <%= ENV.fetch('DB_USER') { '' }%>
+  host: <%= ENV.fetch('DB_HOST') %>
+  password: <%= ENV.fetch('DB_PASSWORD') { '' } %>
   database: issue_viewer_test
 
 production:

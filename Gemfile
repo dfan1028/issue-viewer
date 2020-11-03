@@ -34,5 +34,14 @@ group :development do
   gem 'activerecord-explain-analyze'
 end
 
+group :test do
+  gem 'rspec'
+  gem 'rspec-rails'
+  gem 'faker'
+  gem 'fabrication'
+  gem 'database_cleaner'
+  gem 'shoulda-matchers'
+end
+
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
