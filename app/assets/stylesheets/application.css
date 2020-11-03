@@ -15,3 +15,7 @@
  */
 
 @import 'tachyons';
+
+.break-word {
+  word-break: break-word;
+}

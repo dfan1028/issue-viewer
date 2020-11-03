@@ -15,8 +15,9 @@ Steps to get up and running:
 
 ## Run Specs
 
-1. Go inside the application container `docker exec -t issue-viewer_web_1 sh`
-2. `RAILS_ENV=test rspec`
+1. Make sure `docker-compose up` is all up and running (See above for details)
+2. Go inside the application container `docker exec -t issue-viewer_web_1 sh`
+3. `RAILS_ENV=test rspec`
 
 ## Future Technical Considerations
 
@@ -29,10 +30,16 @@ Steps to get up and running:
 - Add mechanism for rate limiting (Github allows 5000 calls per hour for authenticated requests)
 - Add handling for Github user deleting permissions to the client after they've authenticated
 - Response caching (w/redis), for example issues may change often, but repos should not typically change that often
+- Adding `Rack::Attack` protection for API endpoints against spam
+- Repositories and Issue data should not change across Github users. The current system can be further abstracted with joins tables so we don't need to duplicate the same data shared amongst different users.
 
 ## Future Nice-To-Have's
 
 - Better/prettier UX/UI Design :(
+- More spinners and indicators for user feedback while things load
+- Move login mechanics into the react app
+- Further filters on the serializer to return only just the required attributes
 - Favicon, and other metadata for SEO
 - Translations
 - Breadcrumbs and proper navigation bar
+- Going back in browser when deep inside issues pagination pages only returns to first page instead of previous page

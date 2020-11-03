@@ -13,7 +13,7 @@ class API::IssuesController < API::BaseController
 
     render json: filtered,
       each_serializer: IssueSerializer,
-      meta: paginate(filtered),
+      meta: meta(filtered),
       adapter: :json
   end
 
@@ -41,6 +41,13 @@ class API::IssuesController < API::BaseController
 
   def permitted
     params.permit(:repo_id)
+  end
+
+  def meta(scope)
+    paginate(scope)
+      .merge(
+        repository_title: repository.full_name
+      )
   end
 
 end

@@ -4,10 +4,12 @@ import { BrowserRouter as Router, Link } from 'react-router-dom'
 
 class ListItem extends Component {
   render() {
+    let DisplayValue = this.props.displayValueComponent;
+
     return (
-      <Link className="link" to={ `/${this.props.resourceKey}/${ this.props.id }` }>
+      <Link className="link" to={ `/${this.props.resourceKey}/${ this.props.item.id }` }>
         <li className={ 'ph3 pv3 ' + (this.props.lastItem ? '' : 'bb b--light-silver')}>
-          { this.props.displayValue }
+          <DisplayValue item={ this.props.item } />
         </li>
       </Link>
     )

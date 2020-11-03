@@ -3,6 +3,7 @@ import axios from 'axios';
 import ReactPaginate from 'react-paginate';
 
 import List from '../../layout/List';
+import RepositoryListValue from './RepositoryListValue';
 import Pagination from '../../layout/Pagination';
 
 class Repositories extends Component {
@@ -11,7 +12,7 @@ class Repositories extends Component {
 
     this.state = {
       repositories: [],
-      pagination: {},
+      meta: {},
       loaded: false
     };
 
@@ -24,7 +25,7 @@ class Repositories extends Component {
       .then(response => {
         this.setState({
           repositories: response.data.repositories,
-          pagination: response.data.meta,
+          meta: response.data.meta,
           loaded: true
         });
       })
@@ -44,14 +45,24 @@ class Repositories extends Component {
     return (
       <React.Fragment>
         <h1 className="center">Your Repositories</h1>
-        { hasRepos && <List items={ this.state.repositories } resourceKey="repositories" titleKey="full_name" /> }
+
+        { hasRepos &&
+          <List items={ this.state.repositories }
+            resourceKey="repositories"
+            displayValueComponent={ RepositoryListValue }
+          />
+        }
+
         { hasRepos &&
             <Pagination
-              totalPages={ this.state.pagination.total_pages }
+              totalPages={ this.state.meta.total_pages }
               handlePageChange={ this.handlePageChange }
             />
         }
-        { this.state.loaded && !hasRepos && <p className="center">Are you even a developer?! How do you not have any repos?</p> }
+
+        { this.state.loaded && !hasRepos &&
+          <p className="center">Are you even a developer?! How do you not have any repos?</p>
+        }
       </React.Fragment>
     )
   }

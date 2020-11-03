@@ -10,8 +10,8 @@ class List extends Component {
           this.props.items.map((item, index, arr) => (
             <ListItem
               key={ item.id }
-              id={ item.id }
-              displayValue={ item[this.props.titleKey] }
+              item={ item }
+              displayValueComponent={ this.props.displayValueComponent }
               lastItem={ index === arr.length - 1 }
               resourceKey= { this.props.resourceKey }
             />

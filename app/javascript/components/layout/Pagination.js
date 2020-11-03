@@ -14,7 +14,7 @@ class Pagination extends Component {
         nextLabel=">"
         breakLabel="..."
         breakClassName="pa3"
-        containerClassName="flex list center mb4 pa0"
+        containerClassName="flex flex-wrap list center mb4 pa0"
         pageClassName="pa3"
         activeClassName="b"
         disabledClassName="gray"

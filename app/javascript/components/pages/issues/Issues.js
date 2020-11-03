@@ -3,6 +3,7 @@ import axios from 'axios';
 import ReactPaginate from 'react-paginate';
 
 import List from '../../layout/List';
+import IssueListValue from './IssueListValue';
 import Pagination from '../../layout/Pagination';
 
 class Issues extends Component {
@@ -11,7 +12,7 @@ class Issues extends Component {
 
     this.state = {
       issues: [],
-      pagination: {},
+      meta: {},
       loaded: false
     };
 
@@ -24,7 +25,7 @@ class Issues extends Component {
       .then(response => {
         this.setState({
           issues: response.data.issues,
-          pagination: response.data.meta,
+          meta: response.data.meta,
           loaded: true
         });
       })
@@ -43,15 +44,27 @@ class Issues extends Component {
 
     return (
       <React.Fragment>
-        <h1 className="center">Issues For:</h1>
-        { hasIssues && <List items={ this.state.issues } resourceKey="issues" titleKey="title" /> }
+        <h1 className="center break-word">
+          Issues For { this.state.loaded && `${ this.state.meta.repository_title }` }
+        </h1>
+
+        { hasIssues &&
+            <List items={ this.state.issues }
+              resourceKey="issues"
+              displayValueComponent={ IssueListValue }
+            />
+        }
+
         { hasIssues &&
             <Pagination
-              totalPages={ this.state.pagination.total_pages }
+              totalPages={ this.state.meta.total_pages }
               handlePageChange={ this.handlePageChange }
             />
         }
-        { this.state.loaded && !hasIssues && <p className="center">Holy cow! Are you a wizard? You have no issues!</p> }
+
+        { this.state.loaded && !hasIssues &&
+          <p className="center">Holy cow! Are you a wizard? You have no issues!</p>
+        }
       </React.Fragment>
     )
   }
