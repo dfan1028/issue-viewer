@@ -3,6 +3,8 @@
 module OauthProvider
   class Delegator
 
+    UnsupportedProvider = Class.new(StandardError)
+
     attr_reader :omniauth_params
 
     def initialize(omniauth_params)
@@ -18,12 +20,13 @@ module OauthProvider
       when 'github'
         OauthProvider::Github
       else
-        raise "Unsupported Provider: #{provider}"
+        raise UnsupportedProvider.new("Unsupported Provider: #{provider}")
       end
     end
 
     def provider
       omniauth_params&.provider
     end
+
   end
 end

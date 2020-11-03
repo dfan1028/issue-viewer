@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
-  get '/auth/:provider/callback' => 'auth#create'
-  get '/auth/failure', to: "auth#failure"
+  get '/auth/:provider/callback', to: 'auth#authenticate'
+  get '/auth/failure', to: 'auth#failure'
   get '/logout', to: 'auth#logout', as: :auth_logout
 
   namespace :api, defaults: { format: 'json' } do

@@ -8,11 +8,11 @@ class User < ApplicationRecord
   has_many :repositories, dependent: :destroy
   has_many :issues, through: :repositories
 
-  after_create :import_data
+  after_create :import_repo_data
 
   private
 
-  def import_data
+  def import_repo_data
     case platform
     when 'github'
       GithubService::Repository.new(self).import_data!
