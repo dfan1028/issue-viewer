@@ -7,8 +7,9 @@ jobs:
         environment:
           RAILS_ENV: test
           RACK_ENV: test
-          PGHOST: 127.0.0.1
-          PGUSER: root
+          DB_HOST: 127.0.0.1
+          DB_USER: root
+          DB_PASSWORD: password
       - image: redis:5.0
         environment:
           PGHOST: 127.0.0.1
